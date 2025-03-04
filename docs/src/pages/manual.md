@@ -109,7 +109,7 @@ These operators help manipulate data, control flow, and structure expressions dy
 ### String and Structural Operators
 - `~`: String concatenation (`'Hello' ~ 'World'`).
 - `()`: Controls order of operations and function calls.
-- `[]`: Access list elements and dictionary keys.
+- `[]`: Access list elements and dictionary keys (note that here the indexing of elements starts from `0`.).
 - `.`: Access object attributes (`user.name`).
 
 For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#math).
@@ -207,70 +207,6 @@ result = jinja2_render(tmpl, Dict("name" => "Alexander"));
 println(result)
 ```
 
-## Filters
-
-Filters allow modifying variable output inside `{{ ... }}` expressions.
-They are applied using the pipe (`|`) symbol and can be chained for multiple transformations.
-
-For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#filters).
-
-#### Examples
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("{{ 'hello world' | upper }}");
-
-result = jinja2_render(tmpl);
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("Price: {{ price | round(2) }}");
-
-result = jinja2_render(tmpl, Dict("price" => 19.987));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("Total items: {{ items | length }}");
-
-result = jinja2_render(tmpl, Dict("items" => 1:5));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("{{ message | replace('World', 'Jinja2') }}");
-
-result = jinja2_render(tmpl, Dict("message" => "Hello, World!"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("Shopping list: {{ items | join(', ') }}");
-
-result = jinja2_render(tmpl, Dict("items" => ["Milk", "Eggs", "Bread"]));
-
-println(result)
-```
-
-Look for more filters at the [source](https://jinja.palletsprojects.com/en/stable/templates/#list-of-builtin-filters).
-
 ## Whitespace control
 
 Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates.
@@ -355,6 +291,71 @@ result = jinja2_render(tmpl, Dict("items" => ["apple", "banana", "cherry"]));
 
 println(result)
 ```
+
+
+## Filters
+
+Filters allow modifying variable output inside `{{ ... }}` expressions.
+They are applied using the pipe (`|`) symbol and can be chained for multiple transformations.
+
+For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#filters).
+
+#### Examples
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("{{ 'hello world' | upper }}");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("Price: {{ price | round(2) }}");
+
+result = jinja2_render(tmpl, Dict("price" => 19.987));
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("Total items: {{ items | length }}");
+
+result = jinja2_render(tmpl, Dict("items" => 1:5));
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("{{ message | replace('World', 'Jinja2') }}");
+
+result = jinja2_render(tmpl, Dict("message" => "Hello, World!"));
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("Shopping list: {{ items | join(', ') }}");
+
+result = jinja2_render(tmpl, Dict("items" => ["Milk", "Eggs", "Bread"]));
+
+println(result)
+```
+
+Look for more filters at the [source](https://jinja.palletsprojects.com/en/stable/templates/#list-of-builtin-filters).
 
 ## Comments
 
@@ -628,9 +629,15 @@ println(result)
 ## Call
 
 The `{% call %}` statement allows calling a macro that generates reusable content blocks.
+Inside the macro, the special function `caller()` can be used to render the block of content passed from the `{% call %}` statement.
 This is useful when you need to pass dynamic content or wrap elements within a reusable function-like structure.
 
-For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#call).
+#### Key Features:
+- Calls a macro with or without arguments.
+- Allows passing a block of content to the macro.
+- Uses `caller()` inside the macro to render the passed content.
+
+For more information see the [Child Template](@ref) or [source](https://jinja.palletsprojects.com/en/stable/templates/#call).
 
 #### Examples
 
@@ -641,7 +648,7 @@ tmpl = Jinja2Template("""
 <div class="box">
   <h2>{{ title }}</h2>
   <div class="content">
-    {% block caller %}{{ caller() }}{% endblock -%}
+    {% block content %}{{ caller() }}{% endblock -%}
   </div>
 </div>
 {% endmacro -%}
