@@ -112,7 +112,94 @@ These operators help manipulate data, control flow, and structure expressions dy
 - `[]`: Access list elements and dictionary keys.
 - `.`: Access object attributes (`user.name`).
 
+!!! note
+    Note that in Jinja2 syntax, element indexing starts from `0`.
+
 For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#math).
+
+## Whitespace control
+
+Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates.
+Useful for keeping clean template output, avoiding extra newlines in generated text, and improving readability in formatted templates.
+
+#### How to Control Whitespace:
+- Use `-` inside `{% ... %}` or `{{ ... }}` to trim surrounding spaces and newlines.
+- For example: `{%- statement -%}` removes spaces before and after the statement.
+
+For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#whitespace-control).
+
+#### Examples
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{ 'Complete report' }}
+Priority: 
+  {{ 'High' }}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{- 'Check mail' }}
+Priority: 
+  {{- 'Low' }}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{- 'Visit meeting' -}}
+Priority: 
+  {{- 'Medium' -}}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+<!-- No whitespace control -->
+<ul>
+{% for item in ['apple', 'banana', 'cherry'] %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<!-- With whitespace control -->
+<ul>
+{% for item in ['apple', 'banana', 'cherry'] -%}
+  <li>{{ item }}</li>
+{% endfor -%}
+</ul>
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
 
 ## Variables
 
@@ -271,91 +358,6 @@ println(result)
 
 Look for more filters at the [source](https://jinja.palletsprojects.com/en/stable/templates/#list-of-builtin-filters).
 
-## Whitespace control
-
-Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates.
-Useful for keeping clean template output, avoiding extra newlines in generated text, and improving readability in formatted templates.
-
-#### How to Control Whitespace:
-- Use `-` inside `{% ... %}` or `{{ ... }}` to trim surrounding spaces and newlines.
-- For example: `{%- statement -%}` removes spaces before and after the statement.
-
-For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#whitespace-control).
-
-#### Examples
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{ task }}
-
-Priority: 
-  {{ priority }}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Complete report", "priority" => "High"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{- task }}
-Priority: 
-  {{- priority }}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Check mail", "priority" => "Low"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{- task -}}
-Priority: 
-  {{- priority -}}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Visit meeting", "priority" => "Medium"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-<!-- No whitespace control -->
-<ul>
-{% for item in items %}
-  <li>{{ item }}</li>
-{% endfor %}
-</ul>
-
-<!-- With whitespace control -->
-<ul>
-{% for item in items -%}
-  <li>{{ item }}</li>
-{% endfor -%}
-</ul>
-""");
-
-result = jinja2_render(tmpl, Dict("items" => ["apple", "banana", "cherry"]));
-
-println(result)
-```
-
 ## Comments
 
 Jinja2 allows adding comments in templates using `{# ... #}`.
@@ -498,7 +500,6 @@ println(result)
 
 See more tests [here](https://jinja.palletsprojects.com/en/stable/templates/#builtin-tests)
 
-
 ## For
 
 The for loop allows iterating over sequences such as lists, tuples, dictionaries, and ranges.
@@ -598,10 +599,10 @@ tmpl = Jinja2Template("""
 Hello, {{ username }}!
 {%- endmacro -%}
 {{ greet_user('Charlotte') }}
-{{ greet_user('Henry') }}
+{{ greet_user(name) }}
 """);
 
-result = jinja2_render(tmpl);
+result = jinja2_render(tmpl, Dict("name" => "Henry"));
 
 println(result)
 ```
@@ -611,16 +612,16 @@ println(result)
 ```@example
 using Jinja2Cpp # hide
 tmpl = Jinja2Template("""
-{% macro user(username, pass) -%}
-<user name="{{ username }}" pass="{{ pass }}"/>
+{% macro user(username, password) -%}
+<user name="{{ username }}" pass="{{ password }}"/>
 {%- endmacro -%}
 <users>
   {{ user('Amelia', 'Qwerty123') }}
-  {{ user('Ethan', 'VeryStrongPass') }}
+  {{ user(name, pass) }}
 </users>
 """);
 
-result = jinja2_render(tmpl);
+result = jinja2_render(tmpl, Dict("name" => "Ethan", "pass" => "VeryStrongPass"));
 
 println(result)
 ```
@@ -628,9 +629,15 @@ println(result)
 ## Call
 
 The `{% call %}` statement allows calling a macro that generates reusable content blocks.
+Inside the macro, the special function `caller()` can be used to render the block of content passed from the `{% call %}` statement.
 This is useful when you need to pass dynamic content or wrap elements within a reusable function-like structure.
 
-For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#call).
+#### Key Features:
+- Calls a macro with or without arguments.
+- Allows passing a block of content to the macro.
+- Uses `caller()` inside the macro to render the passed content.
+
+For more information see the [Child Template](@ref) or [source](https://jinja.palletsprojects.com/en/stable/templates/#call).
 
 #### Examples
 
@@ -641,7 +648,7 @@ tmpl = Jinja2Template("""
 <div class="box">
   <h2>{{ title }}</h2>
   <div class="content">
-    {% block caller %}{{ caller() }}{% endblock -%}
+    {% block content %}{{ caller() }}{% endblock -%}
   </div>
 </div>
 {% endmacro -%}
