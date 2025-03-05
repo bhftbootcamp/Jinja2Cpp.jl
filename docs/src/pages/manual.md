@@ -109,8 +109,11 @@ These operators help manipulate data, control flow, and structure expressions dy
 ### String and Structural Operators
 - `~`: String concatenation (`'Hello' ~ 'World'`).
 - `()`: Controls order of operations and function calls.
-- `[]`: Access list elements and dictionary keys (note that here the indexing of elements starts from `0`.).
+- `[]`: Access list elements and dictionary keys.
 - `.`: Access object attributes (`user.name`).
+
+!!! note
+    Note that in Jinja2 syntax, element indexing starts from `0`.
 
 For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#math).
 
