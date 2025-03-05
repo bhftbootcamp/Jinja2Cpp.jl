@@ -114,6 +114,90 @@ These operators help manipulate data, control flow, and structure expressions dy
 
 For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#math).
 
+## Whitespace control
+
+Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates.
+Useful for keeping clean template output, avoiding extra newlines in generated text, and improving readability in formatted templates.
+
+#### How to Control Whitespace:
+- Use `-` inside `{% ... %}` or `{{ ... }}` to trim surrounding spaces and newlines.
+- For example: `{%- statement -%}` removes spaces before and after the statement.
+
+For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#whitespace-control).
+
+#### Examples
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{ 'Complete report' }}
+Priority: 
+  {{ 'High' }}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{- 'Check mail' }}
+Priority: 
+  {{- 'Low' }}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+Task: 
+  {{- 'Visit meeting' -}}
+Priority: 
+  {{- 'Medium' -}}
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
+---
+
+```@example
+using Jinja2Cpp # hide
+tmpl = Jinja2Template("""
+<!-- No whitespace control -->
+<ul>
+{% for item in ['apple', 'banana', 'cherry'] %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<!-- With whitespace control -->
+<ul>
+{% for item in ['apple', 'banana', 'cherry'] -%}
+  <li>{{ item }}</li>
+{% endfor -%}
+</ul>
+""");
+
+result = jinja2_render(tmpl);
+
+println(result)
+```
+
 ## Variables
 
 The `{{ ... }}` syntax is used for outputting variables inside templates.
@@ -206,92 +290,6 @@ result = jinja2_render(tmpl, Dict("name" => "Alexander"));
 
 println(result)
 ```
-
-## Whitespace control
-
-Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates.
-Useful for keeping clean template output, avoiding extra newlines in generated text, and improving readability in formatted templates.
-
-#### How to Control Whitespace:
-- Use `-` inside `{% ... %}` or `{{ ... }}` to trim surrounding spaces and newlines.
-- For example: `{%- statement -%}` removes spaces before and after the statement.
-
-For more information see the [source](https://jinja.palletsprojects.com/en/stable/templates/#whitespace-control).
-
-#### Examples
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{ task }}
-
-Priority: 
-  {{ priority }}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Complete report", "priority" => "High"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{- task }}
-Priority: 
-  {{- priority }}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Check mail", "priority" => "Low"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-Task: 
-  {{- task -}}
-Priority: 
-  {{- priority -}}
-""");
-
-result = jinja2_render(tmpl, Dict("task" => "Visit meeting", "priority" => "Medium"));
-
-println(result)
-```
-
----
-
-```@example
-using Jinja2Cpp # hide
-tmpl = Jinja2Template("""
-<!-- No whitespace control -->
-<ul>
-{% for item in items %}
-  <li>{{ item }}</li>
-{% endfor %}
-</ul>
-
-<!-- With whitespace control -->
-<ul>
-{% for item in items -%}
-  <li>{{ item }}</li>
-{% endfor -%}
-</ul>
-""");
-
-result = jinja2_render(tmpl, Dict("items" => ["apple", "banana", "cherry"]));
-
-println(result)
-```
-
 
 ## Filters
 
@@ -499,7 +497,6 @@ println(result)
 
 See more tests [here](https://jinja.palletsprojects.com/en/stable/templates/#builtin-tests)
 
-
 ## For
 
 The for loop allows iterating over sequences such as lists, tuples, dictionaries, and ranges.
@@ -599,10 +596,10 @@ tmpl = Jinja2Template("""
 Hello, {{ username }}!
 {%- endmacro -%}
 {{ greet_user('Charlotte') }}
-{{ greet_user('Henry') }}
+{{ greet_user(name) }}
 """);
 
-result = jinja2_render(tmpl);
+result = jinja2_render(tmpl, Dict("name" => "Henry"));
 
 println(result)
 ```
@@ -612,16 +609,16 @@ println(result)
 ```@example
 using Jinja2Cpp # hide
 tmpl = Jinja2Template("""
-{% macro user(username, pass) -%}
-<user name="{{ username }}" pass="{{ pass }}"/>
+{% macro user(username, password) -%}
+<user name="{{ username }}" pass="{{ password }}"/>
 {%- endmacro -%}
 <users>
   {{ user('Amelia', 'Qwerty123') }}
-  {{ user('Ethan', 'VeryStrongPass') }}
+  {{ user(name, pass) }}
 </users>
 """);
 
-result = jinja2_render(tmpl);
+result = jinja2_render(tmpl, Dict("name" => "Ethan", "pass" => "VeryStrongPass"));
 
 println(result)
 ```
