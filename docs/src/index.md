@@ -54,6 +54,6 @@ julia> jinja2_render(tmpl)
 
 ## Useful Links
 
-1. [Jinja2Cpp](https://github.com/jinja2cpp/Jinja2Cpp) – Official library repository.  
-2. [Jinja2Cpp_jll.jl](https://github.com/JuliaBinaryWrappers/Jinja2Cpp_jll.jl) – Julia C++ wrapper.
-3. [Jinja2CppWrapper_jll.jl](https://github.com/JuliaBinaryWrappers/Jinja2CppWrapper_jll.jl) – Julia C wrapper.
+- [Jinja2Cpp](https://github.com/jinja2cpp/Jinja2Cpp) – Official library repository.  
+- [Jinja2Cpp_jll.jl](https://github.com/JuliaBinaryWrappers/Jinja2Cpp_jll.jl) – Julia wrapper for Jinja2Cpp (C++).  
+- [Jinja2CppWrapper_jll.jl](https://github.com/JuliaBinaryWrappers/Jinja2CppWrapper_jll.jl) – Julia wrapper for Jinja2Cpp (C).
