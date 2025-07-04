@@ -1,0 +1,21 @@
+{% macro header(title) -%}
+<header>
+  <h1>{{ title }}</h1>
+</header>
+{%- endmacro %}
+
+{% macro nav_menu(items) -%}
+<nav>
+  <ul>
+{% for item in items -%}
+    <li><a href="/{{ item | lower }}">{{ item }}</a></li>
+{% endfor -%}
+  </ul>
+</nav>
+{%- endmacro %}
+
+{% macro footer(year) -%}
+<footer>
+  <p>&copy; {{ year }}. All rights reserved.</p>
+</footer>
+{%- endmacro %}
