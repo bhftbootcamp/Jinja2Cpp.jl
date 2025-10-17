@@ -2,29 +2,29 @@
 
 abstract type Jinja2ValueType end
 
-struct Jinja2StringType  <: Jinja2ValueType end
+struct Jinja2StringType <: Jinja2ValueType end
 struct Jinja2IntegerType <: Jinja2ValueType end
-struct Jinja2BoolType    <: Jinja2ValueType end
-struct Jinja2DoubleType  <: Jinja2ValueType end
-struct Jinja2ListType    <: Jinja2ValueType end
-struct Jinja2MapType     <: Jinja2ValueType end
-struct Jinja2EmptyType   <: Jinja2ValueType end
-struct Jinja2CustomType  <: Jinja2ValueType end
+struct Jinja2BoolType <: Jinja2ValueType end
+struct Jinja2DoubleType <: Jinja2ValueType end
+struct Jinja2ListType <: Jinja2ValueType end
+struct Jinja2MapType <: Jinja2ValueType end
+struct Jinja2EmptyType <: Jinja2ValueType end
+struct Jinja2CustomType <: Jinja2ValueType end
 
 @inline Jinja2ValueType(::T) where {T} = Jinja2ValueType(T)
 @inline Jinja2ValueType(::Type{<:AbstractString}) = Jinja2StringType()
-@inline Jinja2ValueType(::Type{<:Symbol})        = Jinja2StringType()
-@inline Jinja2ValueType(::Type{<:Integer})       = Jinja2IntegerType()
-@inline Jinja2ValueType(::Type{<:Bool})          = Jinja2IntegerType()
+@inline Jinja2ValueType(::Type{<:Symbol}) = Jinja2StringType()
+@inline Jinja2ValueType(::Type{<:Integer}) = Jinja2IntegerType()
+@inline Jinja2ValueType(::Type{<:Bool}) = Jinja2IntegerType()
 @inline Jinja2ValueType(::Type{<:AbstractFloat}) = Jinja2DoubleType()
-@inline Jinja2ValueType(::Type{<:Nothing})       = Jinja2EmptyType()
-@inline Jinja2ValueType(::Type{<:Missing})       = Jinja2EmptyType()
-@inline Jinja2ValueType(::Type{<:AbstractVector})= Jinja2ListType()
-@inline Jinja2ValueType(::Type{<:AbstractSet})   = Jinja2ListType()
-@inline Jinja2ValueType(::Type{<:Tuple})         = Jinja2ListType()
-@inline Jinja2ValueType(::Type{<:AbstractDict})  = Jinja2MapType()
-@inline Jinja2ValueType(::Type{<:NamedTuple})    = Jinja2MapType()
-@inline Jinja2ValueType(::Type{<:Any})           = Jinja2CustomType()
+@inline Jinja2ValueType(::Type{<:Nothing}) = Jinja2EmptyType()
+@inline Jinja2ValueType(::Type{<:Missing}) = Jinja2EmptyType()
+@inline Jinja2ValueType(::Type{<:AbstractVector}) = Jinja2ListType()
+@inline Jinja2ValueType(::Type{<:AbstractSet}) = Jinja2ListType()
+@inline Jinja2ValueType(::Type{<:Tuple}) = Jinja2ListType()
+@inline Jinja2ValueType(::Type{<:AbstractDict}) = Jinja2MapType()
+@inline Jinja2ValueType(::Type{<:NamedTuple}) = Jinja2MapType()
+@inline Jinja2ValueType(::Type{<:Any}) = Jinja2CustomType()
 
 @inline function check_value_null(handle)
     if handle === VALUE_NULL
