@@ -61,7 +61,7 @@ end
     return check_value_null(handle)
 end
 
-@inline function jinja_value(::Jinja2BoolType, value::Bool)   # ← не трогаю
+@inline function jinja_value(::Jinja2BoolType, value::Bool)
     handle = jinja2cpp_value_create_int(value)
     return check_value_null(handle)
 end
@@ -104,7 +104,7 @@ end
 end
 
 @inline function jinja_value(::Jinja2CustomType, value)
-    handle = _jinja_map(_fieldpairs(value))   # ← вместо nfields()
+    handle = _jinja_map(_fieldpairs(value))
     map_handle = jinja2cpp_value_create_map(handle)
     return check_value_null(map_handle)
 end
