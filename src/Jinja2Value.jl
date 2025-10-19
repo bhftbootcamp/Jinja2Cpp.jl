@@ -76,14 +76,20 @@ end
     return check_value_null(handle)
 end
 
+#__ helpers__
+
+@inline _fieldpairs(x) = ((String(n), getfield(x, n)) for n in fieldnames(typeof(x)))
+
 function _jinja_map(entries)
     handle = jinja2cpp_values_map_create()
     check_map_null(handle)
     for (key, value) in entries
-        jinja2cpp_values_map_set(handle, key, jinja_value(value))
+        jinja2cpp_values_map_set(handle, String(key), jinja_value(value))
     end
     return handle
 end
+
+#__ map & list values__
 
 @inline function jinja_value(::Jinja2MapType, entries::AbstractDict)
     handle = _jinja_map(entries)
@@ -98,8 +104,7 @@ end
 end
 
 @inline function jinja_value(::Jinja2CustomType, value)
-    T = typeof(value)
-    handle = _jinja_map(zip(fieldnames(T), (getfield(value, i) for i = 1:nfields(T))))
+    handle = _jinja_map(_fieldpairs(value))
     map_handle = jinja2cpp_value_create_map(handle)
     return check_value_null(map_handle)
 end
@@ -117,8 +122,7 @@ end
 @inline jinja_value(value) = jinja_value(Jinja2ValueType(value), value)
 
 convert_to_jinja_map(entries::AbstractDict) = _jinja_map(entries)
-convert_to_jinja_map(entries::NamedTuple) = _jinja_map(pairs(entries))
+convert_to_jinja_map(entries::NamedTuple)   = _jinja_map(pairs(entries))
 function convert_to_jinja_map(value)
-    T = typeof(value)
-    return _jinja_map(zip(fieldnames(T), (getfield(value, i) for i = 1:nfields(T))))
+    return _jinja_map(_fieldpairs(value))
 end

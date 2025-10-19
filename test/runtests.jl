@@ -163,6 +163,55 @@ end
         tmpl = Jinja2Template(template_source)
         rendered_output = jinja2_render(tmpl, Hello("Bob"))
         @test rendered_output == "Hello, Bob!"
+
+        @kwdef struct EpisodeDirectors
+            pilot::String = "David Lynch"
+            episode_1::String = "Duwayne Dunham"
+            episode_2::String = "David Lynch"
+            episode_3::String = "Tina Rathborne"
+            episode_4::String = "Tim Hunter"
+            episode_5::String = "Lesli Linka Glatter"
+            episode_6::String = "Caleb Deschanel"
+            episode_7::String = "Mark Frost"
+            episode_8::String = "David Lynch"
+            episode_9::String = "David Lynch"
+            episode_10::String = "Lesli Linka Glatter"
+            episode_11::String = "Todd Holland"
+            episode_12::String = "Graeme Clifford"
+            episode_13::String = "Lesli Linka Glatter"
+            episode_14::String = "David Lynch"
+            episode_15::String = "Caleb Deschanel"
+            episode_16::String = "Tim Hunter"
+            episode_17::String = "Tina Rathborne"
+            episode_18::String = "Duwayne Dunham"
+            episode_19::String = "Caleb Deschanel"
+            episode_20::String = "Todd Holland"
+            episode_21::String = "Uli Edel"
+            episode_22::String = "Diane Keaton"
+            episode_23::String = "Lesli Linka Glatter"
+            episode_24::String = "James Foley"
+            episode_25::String = "Duwayne Dunham"
+            episode_26::String = "Jonathan Sanger"
+            episode_27::String = "Stephen Gyllenhaal"
+            episode_28::String = "Tim Hunter"
+            episode_29::String = "David Lynch"
+        end
+        tmpl = Jinja2Template(join([ string(n, ": ", "{{",n,"}}") for n in fieldnames(EpisodeDirectors)], "\n"))
+        rendered_output = jinja2_render(tmpl, EpisodeDirectors())
+        @test count("David Lynch", rendered_output) == 6
+        @test count("Lesli Linka Glatter", rendered_output) == 4
+        @test count("Caleb Deschanel", rendered_output) == 3
+        @test count("Duwayne Dunham", rendered_output) == 3
+        @test count("Tim Hunter", rendered_output) == 3
+        @test count("Todd Holland", rendered_output) == 2
+        @test count("Tina Rathborne", rendered_output) == 2
+        @test count("Graeme Clifford", rendered_output) == 1
+        @test count("Mark Frost", rendered_output) == 1
+        @test count("Uli Edel", rendered_output) == 1
+        @test count("James Foley", rendered_output) == 1
+        @test count("Stephen Gyllenhaal", rendered_output) == 1
+        @test count("Diane Keaton", rendered_output) == 1
+        @test count("Jonathan Sanger", rendered_output) == 1
     end
 
     @testset "Case №9: Rendering with template variables as NamedTuple" begin
