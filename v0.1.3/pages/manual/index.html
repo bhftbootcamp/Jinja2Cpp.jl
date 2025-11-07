@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Manual · Jinja2Cpp.jl</title><meta name="title" content="Manual · Jinja2Cpp.jl"/><meta property="og:title" content="Manual · Jinja2Cpp.jl"/><meta property="twitter:title" content="Manual · Jinja2Cpp.jl"/><meta name="description" content="Documentation for Jinja2Cpp.jl."/><meta property="og:description" content="Documentation for Jinja2Cpp.jl."/><meta property="twitter:description" content="Documentation for Jinja2Cpp.jl."/><meta property="og:url" content="https://bhftbootcamp.github.io/Jinja2Cpp.jl/pages/manual/"/><meta property="twitter:url" content="https://bhftbootcamp.github.io/Jinja2Cpp.jl/pages/manual/"/><link rel="canonical" href="https://bhftbootcamp.github.io/Jinja2Cpp.jl/pages/manual/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">Jinja2Cpp.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li class="is-active"><a class="tocitem" href>Manual</a><ul class="internal"><li><a class="tocitem" href="#Literals"><span>Literals</span></a></li><li><a class="tocitem" href="#Operators"><span>Operators</span></a></li><li><a class="tocitem" href="#Whitespace-control"><span>Whitespace control</span></a></li><li><a class="tocitem" href="#Variables"><span>Variables</span></a></li><li><a class="tocitem" href="#Assignments"><span>Assignments</span></a></li><li><a class="tocitem" href="#Filters"><span>Filters</span></a></li><li><a class="tocitem" href="#Comments"><span>Comments</span></a></li><li><a class="tocitem" href="#Escaping"><span>Escaping</span></a></li><li><a class="tocitem" href="#If"><span>If</span></a></li><li><a class="tocitem" href="#Tests"><span>Tests</span></a></li><li><a class="tocitem" href="#For"><span>For</span></a></li><li><a class="tocitem" href="#Macros"><span>Macros</span></a></li><li><a class="tocitem" href="#Call"><span>Call</span></a></li><li><a class="tocitem" href="#Include"><span>Include</span></a></li><li><a class="tocitem" href="#Import"><span>Import</span></a></li><li><a class="tocitem" href="#Child-Template"><span>Child Template</span></a></li></ul></li><li><a class="tocitem" href="../api_reference/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Manual</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Manual</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/bhftbootcamp/Jinja2Cpp.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/bhftbootcamp/Jinja2Cpp.jl/blob/master/docs/src/pages/manual.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Manual"><a class="docs-heading-anchor" href="#Manual">Manual</a><a id="Manual-1"></a><a class="docs-heading-anchor-permalink" href="#Manual" title="Permalink"></a></h1><p>Here are the main tools and syntax of Jinja2Cpp:</p><h2 id="Literals"><a class="docs-heading-anchor" href="#Literals">Literals</a><a id="Literals-1"></a><a class="docs-heading-anchor-permalink" href="#Literals" title="Permalink"></a></h2><p>Jinja2 supports various constant values that can be directly used inside templates for logic and data representation.</p><p>These include:</p><ul><li>String literals: Enclosed in single or double quotes (<code>&quot;hello&quot;</code>, <code>&#39;world&#39;</code>).</li><li>Integer numbers: Whole numbers without decimals (<code>42</code>, <code>1000</code>).</li><li>Floating-point numbers: Numbers with decimals (<code>3.14</code>, <code>2.718</code>).</li><li>Lists: Ordered collections of values (<code>[1, 3, 4]</code>).</li><li>Tuples: Immutable sequences (<code>(1, &quot;one&quot;, 3.14)</code>).</li><li>Dictionaries: Key-value mappings (<code>{&#39;key&#39;: &#39;value&#39;, &#39;another&#39;: 42}</code>).</li></ul><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#literals">source</a>.</p><h4 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Hello, {{ &#39;Julia&#39; }}!&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Hello, Julia!</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Integer: {{ 42 }}, Float: {{ 3.14 }}&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Integer: 42, Float: 3.14</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% for item in [10, 20, 30] -%}
+{{ 10 * item }}
+{% endfor -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">100
+200
+300</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% for id, name in [(1, &quot;apple&quot;), (2, &quot;banana&quot;), (3, &quot;cherry&quot;)] -%}
+{{ name }} ({{ id }})
+{% endfor -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">apple (1)
+banana (2)
+cherry (3)</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% set user = {&#39;name&#39;=&#39;Alice&#39;, &#39;age&#39;=30, &#39;city&#39;=&#39;Paris&#39;} -%}
+{% for key in user -%}
+{{ key }}: {{ user[key] }}
+{% endfor -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">city: Paris
+age: 30
+name: Alice</code></pre><h2 id="Operators"><a class="docs-heading-anchor" href="#Operators">Operators</a><a id="Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Operators" title="Permalink"></a></h2><p>Jinja2 supports a variety of operators for performing mathematical, logical, and structural operations within templates. These operators help manipulate data, control flow, and structure expressions dynamically.</p><h3 id="Mathematical-Operators"><a class="docs-heading-anchor" href="#Mathematical-Operators">Mathematical Operators</a><a id="Mathematical-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Mathematical-Operators" title="Permalink"></a></h3><ul><li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>: Basic arithmetic operations.</li><li><code>//</code>: Floor division (integer division).</li><li><code>%</code>: Modulo (remainder of division).</li><li><code>**</code>: Exponentiation (power).</li></ul><h3 id="Comparison-Operators"><a class="docs-heading-anchor" href="#Comparison-Operators">Comparison Operators</a><a id="Comparison-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-Operators" title="Permalink"></a></h3><ul><li><code>==</code>, <code>!=</code>: Equality and inequality.</li><li><code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>: Less than, greater than, and their inclusive variants.</li></ul><h3 id="Logical-Operators"><a class="docs-heading-anchor" href="#Logical-Operators">Logical Operators</a><a id="Logical-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Logical-Operators" title="Permalink"></a></h3><ul><li><code>and</code>, <code>or</code>, <code>not</code>: Boolean logic for conditional expressions.</li></ul><h3 id="Membership-and-Identity-Operators"><a class="docs-heading-anchor" href="#Membership-and-Identity-Operators">Membership and Identity Operators</a><a id="Membership-and-Identity-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Membership-and-Identity-Operators" title="Permalink"></a></h3><ul><li><code>in</code>: Checks if a value exists in a sequence (<code>&#39;Olivia&#39; in users</code>).</li><li><code>is</code>: Performs identity comparison (<code>value is none</code>).</li></ul><h3 id="String-and-Structural-Operators"><a class="docs-heading-anchor" href="#String-and-Structural-Operators">String and Structural Operators</a><a id="String-and-Structural-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#String-and-Structural-Operators" title="Permalink"></a></h3><ul><li><code>~</code>: String concatenation (<code>&#39;Hello&#39; ~ &#39;World&#39;</code>).</li><li><code>()</code>: Controls order of operations and function calls.</li><li><code>[]</code>: Access list elements and dictionary keys.</li><li><code>.</code>: Access object attributes (<code>user.name</code>).</li></ul><div class="admonition is-info" id="Note-e5d84b927c37a2ef"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-e5d84b927c37a2ef" title="Permalink"></a></header><div class="admonition-body"><p>Note that in Jinja2 syntax, element indexing starts from <code>0</code>.</p></div></div><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#math">source</a>.</p><h2 id="Whitespace-control"><a class="docs-heading-anchor" href="#Whitespace-control">Whitespace control</a><a id="Whitespace-control-1"></a><a class="docs-heading-anchor-permalink" href="#Whitespace-control" title="Permalink"></a></h2><p>Jinja2 provides whitespace control to manage extra spaces and newlines in rendered templates. Useful for keeping clean template output, avoiding extra newlines in generated text, and improving readability in formatted templates.</p><h4 id="How-to-Control-Whitespace:"><a class="docs-heading-anchor" href="#How-to-Control-Whitespace:">How to Control Whitespace:</a><a id="How-to-Control-Whitespace:-1"></a><a class="docs-heading-anchor-permalink" href="#How-to-Control-Whitespace:" title="Permalink"></a></h4><ul><li>Use <code>-</code> inside <code>{% ... %}</code> or <code>{{ ... }}</code> to trim surrounding spaces and newlines.</li><li>For example: <code>{%- statement -%}</code> removes spaces before and after the statement.</li></ul><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#whitespace-control">source</a>.</p><h4 id="Examples-2"><a class="docs-heading-anchor" href="#Examples-2">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-2" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+Task:
+  {{ &#39;Complete report&#39; }}
+Priority:
+  {{ &#39;High&#39; }}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Task:
+  Complete report
+Priority:
+  High</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+Task:
+  {{- &#39;Check mail&#39; }}
+Priority:
+  {{- &#39;Low&#39; }}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Task:Check mail
+Priority:Low</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+Task:
+  {{- &#39;Visit meeting&#39; -}}
+Priority:
+  {{- &#39;Medium&#39; -}}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Task:Visit meetingPriority:Medium</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;!-- No whitespace control --&gt;
+&lt;ul&gt;
+{% for item in [&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;] %}
+  &lt;li&gt;{{ item }}&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+
+&lt;!-- With whitespace control --&gt;
+&lt;ul&gt;
+{% for item in [&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;] -%}
+  &lt;li&gt;{{ item }}&lt;/li&gt;
+{% endfor -%}
+&lt;/ul&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;!-- No whitespace control --&gt;
+&lt;ul&gt;
+
+  &lt;li&gt;apple&lt;/li&gt;
+
+  &lt;li&gt;banana&lt;/li&gt;
+
+  &lt;li&gt;cherry&lt;/li&gt;
+
+&lt;/ul&gt;
+
+&lt;!-- With whitespace control --&gt;
+&lt;ul&gt;
+  &lt;li&gt;apple&lt;/li&gt;
+  &lt;li&gt;banana&lt;/li&gt;
+  &lt;li&gt;cherry&lt;/li&gt;
+&lt;/ul&gt;</code></pre><h2 id="Variables"><a class="docs-heading-anchor" href="#Variables">Variables</a><a id="Variables-1"></a><a class="docs-heading-anchor-permalink" href="#Variables" title="Permalink"></a></h2><p>The <code>{{ ... }}</code> syntax is used for outputting variables inside templates. It allows dynamic content rendering by inserting values from the provided context.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#variables">source</a>.</p><h4 id="Examples-3"><a class="docs-heading-anchor" href="#Examples-3">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-3" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Hello, {{ name }}!&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;name&quot; =&gt; &quot;Julia&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Hello, Julia!</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;First item: {{ items[0] }}&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;items&quot; =&gt; [&quot;Apple&quot;, &quot;Banana&quot;, &quot;Cherry&quot;]));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">First item: Apple</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+User: {{ user[0][&#39;name&#39;] }}, Age: {{ user[0][&#39;age&#39;] }}
+User: {{ user[1].name }}, Age: {{ user[1].age }}
+&quot;&quot;&quot;);
+
+users = Dict(
+    &quot;user&quot; =&gt; [
+        Dict(&quot;name&quot; =&gt; &quot;Bob&quot;, &quot;age&quot; =&gt; 25),
+        Dict(&quot;name&quot; =&gt; &quot;Charlie&quot;, &quot;age&quot; =&gt; 30),
+    ],
+);
+
+result = jinja2_render(tmpl, users)
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">User: Bob, Age: 25
+User: Charlie, Age: 30</code></pre><h2 id="Assignments"><a class="docs-heading-anchor" href="#Assignments">Assignments</a><a id="Assignments-1"></a><a class="docs-heading-anchor-permalink" href="#Assignments" title="Permalink"></a></h2><p>The <code>{% set %}</code> statement allows you to define and assign values to variables within a template. This can be useful for intermediate calculations or storing values for later use.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#assignments">source</a>.</p><h4 id="Examples-4"><a class="docs-heading-anchor" href="#Examples-4">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-4" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% set total = price * quantity -%}
+Total cost: {{ total }}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;price&quot; =&gt; 10, &quot;quantity&quot; =&gt; 3));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Total cost: 30</code></pre><hr/><p>The <code>{% set %}</code> block allows assigning multi-line content to a variable. This is useful for storing complex HTML structures or formatted text within a template.</p><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% set message -%}
+  &lt;p&gt;Hello, {{ name }}!&lt;/p&gt;
+  &lt;p&gt;Welcome to our website.&lt;/p&gt;
+{%- endset -%}
+&lt;div class=&quot;greeting&quot;&gt;
+{{ message }}
+&lt;/div&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;name&quot; =&gt; &quot;Alexander&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;div class=&quot;greeting&quot;&gt;
+  &lt;p&gt;Hello, Alexander!&lt;/p&gt;
+  &lt;p&gt;Welcome to our website.&lt;/p&gt;
+&lt;/div&gt;</code></pre><h2 id="Filters"><a class="docs-heading-anchor" href="#Filters">Filters</a><a id="Filters-1"></a><a class="docs-heading-anchor-permalink" href="#Filters" title="Permalink"></a></h2><p>Filters allow modifying variable output inside <code>{{ ... }}</code> expressions. They are applied using the pipe (<code>|</code>) symbol and can be chained for multiple transformations.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#filters">source</a>.</p><h4 id="Examples-5"><a class="docs-heading-anchor" href="#Examples-5">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-5" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;{{ &#39;hello world&#39; | upper }}&quot;);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">HELLO WORLD</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Price: {{ price | round(2) }}&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;price&quot; =&gt; 19.987));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Price: 19.99</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Total items: {{ items | length }}&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;items&quot; =&gt; 1:5));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Total items: 5</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;{{ message | replace(&#39;World&#39;, &#39;Jinja2&#39;) }}&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;message&quot; =&gt; &quot;Hello, World!&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Hello, Jinja2!</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;Shopping list: {{ items | join(&#39;, &#39;) }}&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;items&quot; =&gt; [&quot;Milk&quot;, &quot;Eggs&quot;, &quot;Bread&quot;]));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Shopping list: Milk, Eggs, Bread</code></pre><p>Look for more filters at the <a href="https://jinja.palletsprojects.com/en/stable/templates/#list-of-builtin-filters">source</a>.</p><h2 id="Comments"><a class="docs-heading-anchor" href="#Comments">Comments</a><a id="Comments-1"></a><a class="docs-heading-anchor-permalink" href="#Comments" title="Permalink"></a></h2><p>Jinja2 allows adding comments in templates using <code>{# ... #}</code>. These comments are completely removed during rendering and do not appear in the output file. This is useful for documenting templates without affecting the final result.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#comments">source</a>.</p><h4 id="Examples-6"><a class="docs-heading-anchor" href="#Examples-6">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-6" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+{# This is a comment and will not be visible in the rendered output -#}
+    &lt;h1&gt;Welcome, {{ user }}&lt;/h1&gt;
+{#
+    Multi-line comments are also supported.
+    They can be useful for documenting complex templates.
+-#}
+    &lt;p&gt;Your role: {{ role }}&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;user&quot; =&gt; &quot;Emma&quot;, &quot;role&quot; =&gt; &quot;Admin&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Example Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome, Emma&lt;/h1&gt;
+    &lt;p&gt;Your role: Admin&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><h2 id="Escaping"><a class="docs-heading-anchor" href="#Escaping">Escaping</a><a id="Escaping-1"></a><a class="docs-heading-anchor-permalink" href="#Escaping" title="Permalink"></a></h2><p>The <code>{% raw %}</code> block is used to prevent template expressions from being evaluated. Any content inside <code>{% raw %} ... {% endraw %}</code> is treated as plain text,  and Jinja2 does not process template syntax such as <code>{{ ... }}</code> or <code>{% ... %}</code> within this block.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#escaping">source</a>.</p><h4 id="Examples-7"><a class="docs-heading-anchor" href="#Examples-7">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-7" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% raw -%}
+Hello, {{ name }}!
+{% endraw -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;name&quot; =&gt; &quot;Benjamin&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Hello, {{ name }}!</code></pre><h2 id="If"><a class="docs-heading-anchor" href="#If">If</a><a id="If-1"></a><a class="docs-heading-anchor-permalink" href="#If" title="Permalink"></a></h2><p>Jinja2 allows you to use conditional statements to control the flow of your template. The <code>{% if %}</code> statement is used to check conditions, <code>{% elif %}</code> provides alternative conditions, and <code>{% else %}</code> defines a fallback case when no previous conditions are met.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#if">source</a>.</p><h4 id="Examples-8"><a class="docs-heading-anchor" href="#Examples-8">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-8" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% if is_admin -%}
+You are an administrator.
+{%- else -%}
+You are a regular user.
+{% endif -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;is_admin&quot; =&gt; true));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">You are an administrator.</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% if score &gt;= 90 -%}
+Grade: A
+{% elif score &gt;= 75 -%}
+Grade: B
+{% elif score &gt;= 60 -%}
+Grade: C
+{% else -%}
+Grade: F
+{% endif %}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;score&quot; =&gt; 85));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Grade: B</code></pre><h2 id="Tests"><a class="docs-heading-anchor" href="#Tests">Tests</a><a id="Tests-1"></a><a class="docs-heading-anchor-permalink" href="#Tests" title="Permalink"></a></h2><p>Jinja2 provides a way to perform tests within templates to check conditions or manipulate data before rendering. These tests are useful for making decisions, applying logic, or validating the input data within the template. Tests are typically used inside <code>{% if %}</code> statements to check for conditions like equality, existence, type, or other attributes of variables.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#tests">source</a>.</p><h4 id="Examples-9"><a class="docs-heading-anchor" href="#Examples-9">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-9" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;body&gt;
+{% if user is defined -%}
+  &lt;p&gt;Welcome, {{ user }}!&lt;/p&gt;
+{% else %}
+  &lt;p&gt;Please log in.&lt;/p&gt;
+{% endif -%}
+{% if age &gt; 18 -%}
+  &lt;p&gt;You are an adult.&lt;/p&gt;
+{% else %}
+  &lt;p&gt;You are a minor.&lt;/p&gt;
+{% endif -%}
+{% if &#39;admin&#39; in roles -%}
+  &lt;p&gt;You have administrator privileges.&lt;/p&gt;
+{% else %}
+  &lt;p&gt;You do not have administrator privileges.&lt;/p&gt;
+{% endif -%}
+&lt;/body&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;user&quot; =&gt; &quot;John&quot;, &quot;age&quot; =&gt; 25, &quot;roles&quot; =&gt; [&quot;user&quot;, &quot;admin&quot;]));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;body&gt;
+  &lt;p&gt;Welcome, John!&lt;/p&gt;
+  &lt;p&gt;You are an adult.&lt;/p&gt;
+  &lt;p&gt;You have administrator privileges.&lt;/p&gt;
+&lt;/body&gt;</code></pre><p>See more tests <a href="https://jinja.palletsprojects.com/en/stable/templates/#builtin-tests">here</a></p><h2 id="For"><a class="docs-heading-anchor" href="#For">For</a><a id="For-1"></a><a class="docs-heading-anchor-permalink" href="#For" title="Permalink"></a></h2><p>The for loop allows iterating over sequences such as lists, tuples, dictionaries, and ranges. It dynamically generates content for each item in the collection.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#for">source</a>.</p><h4 id="Examples-10"><a class="docs-heading-anchor" href="#Examples-10">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-10" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;ul&gt;
+{% for item in items -%}
+  &lt;li&gt;{{ item }}&lt;/li&gt;
+{% endfor -%}
+&lt;/ul&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;items&quot; =&gt; [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;]));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;ul&gt;
+  &lt;li&gt;apple&lt;/li&gt;
+  &lt;li&gt;banana&lt;/li&gt;
+  &lt;li&gt;cherry&lt;/li&gt;
+&lt;/ul&gt;</code></pre><hr/><p>Jinja2 allows adding conditions directly inside a <code>{% for %}</code> loop using an if clause. This is useful when filtering elements during iteration without modifying the original data structure.</p><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;ul&gt;
+{% for product in products if product.in_stock -%}
+  &lt;li&gt;{{ product.name }}: {{ product.price }}\$&lt;/li&gt;
+{% endfor -%}
+&lt;/ul&gt;
+&quot;&quot;&quot;);
+
+products = [
+    Dict(&quot;name&quot; =&gt; &quot;Laptop&quot;, &quot;price&quot; =&gt; 1200, &quot;in_stock&quot; =&gt; true),
+    Dict(&quot;name&quot; =&gt; &quot;Smartphone&quot;, &quot;price&quot; =&gt; 800, &quot;in_stock&quot; =&gt; false),
+    Dict(&quot;name&quot; =&gt; &quot;Headphones&quot;, &quot;price&quot; =&gt; 150, &quot;in_stock&quot; =&gt; true)
+];
+
+result = jinja2_render(tmpl, Dict(&quot;products&quot; =&gt; products));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;ul&gt;
+  &lt;li&gt;Laptop: 1200$&lt;/li&gt;
+  &lt;li&gt;Headphones: 150$&lt;/li&gt;
+&lt;/ul&gt;</code></pre><hr/><div class="admonition is-warning" id="Warning-9f6525363809fed5"><header class="admonition-header">Warning<a class="admonition-anchor" href="#Warning-9f6525363809fed5" title="Permalink"></a></header><div class="admonition-body"><p>Please note that the current implementation does not support iteration over dictionary elements in the key-value form <code>{% for key, value in dict %}</code>. At the moment, iteration over a dictionary is only possible by its <code>keys</code>. The values ​​corresponding to these keys must be additionally extracted in the loop body. The issue can be found <a href="https://github.com/jinja2cpp/Jinja2Cpp/issues/178">here</a>.</p></div></div><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+&lt;ul&gt;
+{% for product in products -%}
+  &lt;li&gt;{{ product }}: {{ products[product] }}\$&lt;/li&gt;
+{% endfor -%}
+&lt;/ul&gt;
+&quot;&quot;&quot;);
+
+products = Dict(
+    &quot;Laptop&quot; =&gt; 1200,
+    &quot;Smartphone&quot; =&gt; 800,
+    &quot;Tablet&quot; =&gt; 500,
+    &quot;Smartwatch&quot; =&gt; 250,
+    &quot;Headphones&quot; =&gt; 150,
+    &quot;Wireless Mouse&quot; =&gt; 50
+);
+
+result = jinja2_render(tmpl, Dict(&quot;products&quot; =&gt; products))
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;ul&gt;
+  &lt;li&gt;Smartphone: 800$&lt;/li&gt;
+  &lt;li&gt;Laptop: 1200$&lt;/li&gt;
+  &lt;li&gt;Headphones: 150$&lt;/li&gt;
+  &lt;li&gt;Wireless Mouse: 50$&lt;/li&gt;
+  &lt;li&gt;Smartwatch: 250$&lt;/li&gt;
+  &lt;li&gt;Tablet: 500$&lt;/li&gt;
+&lt;/ul&gt;</code></pre><h2 id="Macros"><a class="docs-heading-anchor" href="#Macros">Macros</a><a id="Macros-1"></a><a class="docs-heading-anchor-permalink" href="#Macros" title="Permalink"></a></h2><p>The macro statement allows you to define reusable code blocks that can be called multiple times within a template. You can define a macro using <code>{% macro name(args...) %}</code> and call it within the template using <code>{{ name(args...) }}</code> or <code>{% call name(args...) %}</code>. This is useful for creating reusable components like headers, footers, or custom elements, which can be easily updated and maintained.</p><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#macros">source</a>.</p><h4 id="Examples-11"><a class="docs-heading-anchor" href="#Examples-11">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-11" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% macro greet_user(username) -%}
+Hello, {{ username }}!
+{%- endmacro -%}
+{{ greet_user(&#39;Charlotte&#39;) }}
+{{ greet_user(name) }}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;name&quot; =&gt; &quot;Henry&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Hello, Charlotte!
+Hello, Henry!</code></pre><hr/><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% macro user(username, password) -%}
+&lt;user name=&quot;{{ username }}&quot; pass=&quot;{{ password }}&quot;/&gt;
+{%- endmacro -%}
+&lt;users&gt;
+  {{ user(&#39;Amelia&#39;, &#39;Qwerty123&#39;) }}
+  {{ user(name, pass) }}
+&lt;/users&gt;
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;name&quot; =&gt; &quot;Ethan&quot;, &quot;pass&quot; =&gt; &quot;VeryStrongPass&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;users&gt;
+  &lt;user name=&quot;Amelia&quot; pass=&quot;Qwerty123&quot;/&gt;
+  &lt;user name=&quot;Ethan&quot; pass=&quot;VeryStrongPass&quot;/&gt;
+&lt;/users&gt;</code></pre><h2 id="Call"><a class="docs-heading-anchor" href="#Call">Call</a><a id="Call-1"></a><a class="docs-heading-anchor-permalink" href="#Call" title="Permalink"></a></h2><p>The <code>{% call %}</code> statement allows calling a macro that generates reusable content blocks. Inside the macro, the special function <code>caller()</code> can be used to render the block of content passed from the <code>{% call %}</code> statement. This is useful when you need to pass dynamic content or wrap elements within a reusable function-like structure.</p><h4 id="Key-Features:"><a class="docs-heading-anchor" href="#Key-Features:">Key Features:</a><a id="Key-Features:-1"></a><a class="docs-heading-anchor-permalink" href="#Key-Features:" title="Permalink"></a></h4><ul><li>Calls a macro with or without arguments.</li><li>Allows passing a block of content to the macro.</li><li>Uses <code>caller()</code> inside the macro to render the passed content.</li></ul><p>For more information see the <a href="#Child-Template">Child Template</a> or <a href="https://jinja.palletsprojects.com/en/stable/templates/#call">source</a>.</p><h4 id="Examples-12"><a class="docs-heading-anchor" href="#Examples-12">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-12" title="Permalink"></a></h4><pre><code class="language-julia hljs">tmpl = Jinja2Template(&quot;&quot;&quot;
+{% macro wrap_content(title) -%}
+&lt;div class=&quot;box&quot;&gt;
+  &lt;h2&gt;{{ title }}&lt;/h2&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    {% block content %}{{ caller() }}{% endblock -%}
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endmacro -%}
+
+{%- call wrap_content(&quot;Welcome&quot;) -%}
+&lt;p&gt;Hello, {{ user }}! Enjoy your stay.&lt;/p&gt;
+{% endcall -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(tmpl, Dict(&quot;user&quot; =&gt; &quot;Michael&quot;));
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;div class=&quot;box&quot;&gt;
+  &lt;h2&gt;Welcome&lt;/h2&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;p&gt;Hello, Michael! Enjoy your stay.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre><h2 id="Include"><a class="docs-heading-anchor" href="#Include">Include</a><a id="Include-1"></a><a class="docs-heading-anchor-permalink" href="#Include" title="Permalink"></a></h2><p>The <code>{% include %}</code> statement allows you to insert the contents of another template file into the current template. This is useful for breaking large templates into reusable components, such as headers, footers, and navigation bars, which can be shared across multiple pages.</p><h4 id="Key-Features:-2"><a class="docs-heading-anchor" href="#Key-Features:-2">Key Features:</a><a class="docs-heading-anchor-permalink" href="#Key-Features:-2" title="Permalink"></a></h4><ul><li>Includes another template at the location of the <code>{% include %}</code> statement.</li><li>Supports dynamic data passing, enabling flexibility in content rendering.</li><li>If the included template is missing, it can be handled gracefully using the ignore missing option (<code>{% include &#39;file.html&#39; ignore missing %}</code>).</li></ul><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#include">source</a>.</p><h4 id="Examples-13"><a class="docs-heading-anchor" href="#Examples-13">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-13" title="Permalink"></a></h4><p><code>header.html</code>:</p><pre><code class="language-html hljs">&lt;!-- header.html --&gt;
+&lt;header&gt;
+  &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre><p><code>footer.html</code>:</p><pre><code class="language-html hljs">&lt;!-- footer.html --&gt;
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2025 My Website. All rights reserved.&lt;/p&gt;
+&lt;/footer&gt;</code></pre><div class="admonition is-info" id="Note-9c5ea16ec02b36c4"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-9c5ea16ec02b36c4" title="Permalink"></a></header><div class="admonition-body"><p>When using <code>include</code> (or similar constructs that use files from your file system),   be sure to specify the template directory using <a href="../api_reference/#Jinja2Cpp.Jinja2Wrapper.Jinja2Environment"><code>Jinja2Environment</code></a>.</p></div></div><pre><code class="language-julia hljs">tmpl_env = Jinja2Environment(&quot;./templates&quot;)
+
+tmpl = Jinja2Template(
+  tmpl_env,
+  &quot;&quot;&quot;
+  {% include &quot;header.html&quot; %}
+  &lt;!-- content --&gt;
+  &lt;p&gt;Main page content&lt;/p&gt;
+  {% include &quot;footer.html&quot; %}
+  &quot;&quot;&quot;,
+);
+
+result = jinja2_render(tmpl);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;!-- header.html --&gt;
+&lt;header&gt;
+  &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+&lt;!-- content --&gt;
+&lt;p&gt;Main page content&lt;/p&gt;
+&lt;!-- footer.html --&gt;
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2025 My Website. All rights reserved.&lt;/p&gt;
+&lt;/footer&gt;</code></pre><h2 id="Import"><a class="docs-heading-anchor" href="#Import">Import</a><a id="Import-1"></a><a class="docs-heading-anchor-permalink" href="#Import" title="Permalink"></a></h2><p>The <code>{% import %}</code> statement allows you to load an external template as a module, making its macros and variables accessible within the current template. This is useful for organizing reusable functions, such as macros for formatting, rendering UI components, or handling common template logic.</p><h4 id="Key-Features:-3"><a class="docs-heading-anchor" href="#Key-Features:-3">Key Features:</a><a class="docs-heading-anchor-permalink" href="#Key-Features:-3" title="Permalink"></a></h4><ul><li>Loads another template as a module.</li><li>Allows calling macros and accessing variables from the imported template.</li><li>Provides better namespace management compared to <code>{% include %}</code>, as it does not directly render content but imports functions for later use.</li></ul><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#import">source</a>.</p><h4 id="Examples-14"><a class="docs-heading-anchor" href="#Examples-14">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-14" title="Permalink"></a></h4><p><code>web_components.html</code>:</p><pre><code class="language-html hljs">{% macro header(title) -%}
+&lt;header&gt;
+  &lt;h1&gt;{{ title }}&lt;/h1&gt;
+&lt;/header&gt;
+{%- endmacro %}
+
+{% macro nav_menu(items) -%}
+&lt;nav&gt;
+  &lt;ul&gt;
+{% for item in items -%}
+    &lt;li&gt;&lt;a href=&quot;/{{ item | lower }}&quot;&gt;{{ item }}&lt;/a&gt;&lt;/li&gt;
+{% endfor -%}
+  &lt;/ul&gt;
+&lt;/nav&gt;
+{%- endmacro %}
+
+{% macro footer(year) -%}
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; {{ year }}. All rights reserved.&lt;/p&gt;
+&lt;/footer&gt;
+{%- endmacro %}</code></pre><pre><code class="language-julia hljs">tmpl_env = Jinja2Environment(&quot;./templates&quot;)
+
+tmpl = Jinja2Template(
+    tmpl_env,
+    &quot;&quot;&quot;
+    {% import &#39;web_components.html&#39; as web -%}
+    {{ web.header(name) }}
+    {{ web.nav_menu(components) }}
+    {{ web.footer(year) }}
+    &quot;&quot;&quot;,
+);
+
+web = Dict(
+    &quot;name&quot; =&gt; &quot;My Awesome Website&quot;,
+    &quot;components&quot; =&gt; [&quot;Home&quot;, &quot;About&quot;, &quot;Services&quot;, &quot;Contact&quot;],
+    &quot;year&quot; =&gt; 2025,
+)
+
+result = jinja2_render(tmpl, web);
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;header&gt;
+  &lt;h1&gt;My Awesome Website&lt;/h1&gt;
+&lt;/header&gt;
+&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/home&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/services&quot;&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2025. All rights reserved.&lt;/p&gt;
+&lt;/footer&gt;</code></pre><h2 id="Child-Template"><a class="docs-heading-anchor" href="#Child-Template">Child Template</a><a id="Child-Template-1"></a><a class="docs-heading-anchor-permalink" href="#Child-Template" title="Permalink"></a></h2><p>The <code>{% extends %}</code> and <code>{% block %}</code> statements are used together to create a template inheritance system. This allows you to define a basic structure in a parent template, and then override specific sections in child templates. It&#39;s perfect for maintaining a consistent layout (like headers, footers, and navigation) across multiple pages while allowing each page to define its own unique content.</p><h4 id="How-it-works:"><a class="docs-heading-anchor" href="#How-it-works:">How it works:</a><a id="How-it-works:-1"></a><a class="docs-heading-anchor-permalink" href="#How-it-works:" title="Permalink"></a></h4><ul><li><code>{% extends %}</code>: This statement is used in the child template to indicate that it is inheriting from a parent template.</li><li><code>{% block %}</code>: This defines a block of content that can be overridden in the child template.   In the parent template, the block defines a placeholder for content that can be dynamically changed in the child template.</li></ul><p>For more information see the <a href="https://jinja.palletsprojects.com/en/stable/templates/#child-template">source</a>.</p><h4 id="Examples-15"><a class="docs-heading-anchor" href="#Examples-15">Examples</a><a class="docs-heading-anchor-permalink" href="#Examples-15" title="Permalink"></a></h4><p><code>website.html</code>:</p><pre><code class="language-html hljs">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;{% block title %}Default Title{% endblock %}&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      {% block content %}Default Content{% endblock -%}
+    &lt;/main&gt;
+    &lt;footer&gt;
+      {% block footer %}&lt;p&gt;&amp;copy; 2025 My Website&lt;/p&gt;{% endblock %}
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><pre><code class="language-julia hljs">tmpl_env = Jinja2Environment(&quot;./templates&quot;)
+
+child_template = Jinja2Template(tmpl_env, &quot;&quot;&quot;
+{% extends &#39;website.html&#39; %}
+
+{% block title %}Home Page{% endblock %}
+{% block content -%}
+&lt;h2&gt;Welcome to the Home Page!&lt;/h2&gt;
+{% endblock -%}
+&quot;&quot;&quot;);
+
+result = jinja2_render(child_template)
+
+println(result)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Home Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;h2&gt;Welcome to the Home Page!&lt;/h2&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+      &lt;p&gt;&amp;copy; 2025 My Website&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../">« Home</a><a class="docs-footer-nextpage" href="../api_reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.15.0 on <span class="colophon-date" title="Friday 7 November 2025 12:59">Friday 7 November 2025</span>. Using Julia version 1.12.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
