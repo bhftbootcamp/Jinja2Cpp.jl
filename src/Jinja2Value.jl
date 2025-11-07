@@ -4,18 +4,18 @@ abstract type Jinja2ValueType end
 
 struct Jinja2StringType <: Jinja2ValueType end
 struct Jinja2IntegerType <: Jinja2ValueType end
-struct Jinja2BoolType <: Jinja2ValueType end
-struct Jinja2DoubleType <: Jinja2ValueType end
-struct Jinja2ListType <: Jinja2ValueType end
-struct Jinja2MapType <: Jinja2ValueType end
-struct Jinja2EmptyType <: Jinja2ValueType end
-struct Jinja2CustomType <: Jinja2ValueType end
+struct Jinja2BoolType    <: Jinja2ValueType end
+struct Jinja2DoubleType  <: Jinja2ValueType end
+struct Jinja2ListType    <: Jinja2ValueType end
+struct Jinja2MapType     <: Jinja2ValueType end
+struct Jinja2EmptyType   <: Jinja2ValueType end
+struct Jinja2CustomType  <: Jinja2ValueType end
 
 @inline Jinja2ValueType(::T) where {T} = Jinja2ValueType(T)
 @inline Jinja2ValueType(::Type{<:AbstractString}) = Jinja2StringType()
 @inline Jinja2ValueType(::Type{<:Symbol}) = Jinja2StringType()
 @inline Jinja2ValueType(::Type{<:Integer}) = Jinja2IntegerType()
-@inline Jinja2ValueType(::Type{<:Bool}) = Jinja2IntegerType()
+@inline Jinja2ValueType(::Type{<:Bool}) = Jinja2BoolType()
 @inline Jinja2ValueType(::Type{<:AbstractFloat}) = Jinja2DoubleType()
 @inline Jinja2ValueType(::Type{<:Nothing}) = Jinja2EmptyType()
 @inline Jinja2ValueType(::Type{<:Missing}) = Jinja2EmptyType()
@@ -24,6 +24,7 @@ struct Jinja2CustomType <: Jinja2ValueType end
 @inline Jinja2ValueType(::Type{<:Tuple}) = Jinja2ListType()
 @inline Jinja2ValueType(::Type{<:AbstractDict}) = Jinja2MapType()
 @inline Jinja2ValueType(::Type{<:NamedTuple}) = Jinja2MapType()
+@inline Jinja2ValueType(::Type{<:Enum}) = Jinja2StringType()
 @inline Jinja2ValueType(::Type{<:Any}) = Jinja2CustomType()
 
 @inline function check_value_null(handle)
@@ -52,8 +53,11 @@ end
     return check_value_null(handle)
 end
 
-@inline function jinja_value(::Jinja2StringType, value::Symbol)
-    return jinja_value(Jinja2StringType(), string(value))
+@inline jinja_value(::Jinja2StringType, value::Symbol) =
+    jinja_value(Jinja2StringType(), string(value))
+
+@inline function jinja_value(::Jinja2StringType, x::Enum)
+    return jinja_value(Jinja2StringType(), string(x))
 end
 
 @inline function jinja_value(::Jinja2IntegerType, value::Integer)
@@ -76,8 +80,6 @@ end
     return check_value_null(handle)
 end
 
-#__ helpers__
-
 @inline _fieldpairs(x) = ((String(n), getfield(x, n)) for n in fieldnames(typeof(x)))
 
 function _jinja_map(entries)
@@ -88,8 +90,6 @@ function _jinja_map(entries)
     end
     return handle
 end
-
-#__ map & list values__
 
 @inline function jinja_value(::Jinja2MapType, entries::AbstractDict)
     handle = _jinja_map(entries)

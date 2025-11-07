@@ -7,6 +7,8 @@ import Jinja2Cpp.Jinja2Wrapper:
     TEMPLATE_ENV_NULL,
     MEMORY_FS_NULL
 
+_templates_dir() = normpath(joinpath(@__DIR__, "templates"))
+
 @testset "Template Tests" begin
     template_source = "Hello, {{ name }}!"
 
@@ -19,7 +21,7 @@ import Jinja2Cpp.Jinja2Wrapper:
     end
 
     @testset "Case №2: Template creation from environment and string" begin
-        env = Jinja2Environment("")
+        env = Jinja2Environment(_templates_dir())
         tmpl = Jinja2Template(env, template_source)
         @test tmpl isa Jinja2Template
         @test tmpl.handle_ptr !== TEMPLATE_NULL
@@ -43,7 +45,7 @@ end
 
 @testset "Environment Tests" begin
     @testset "Case №1: Basic environment creation" begin
-        env = Jinja2Environment("templates/")
+        env = Jinja2Environment(_templates_dir())
         @test env isa Jinja2Environment
         @test env.tmpl_env_ptr !== TEMPLATE_ENV_NULL
         @test env.mem_fs_ptr   !== MEMORY_FS_NULL
@@ -53,7 +55,7 @@ end
     end
 
     @testset "Case №2: Environment finalization" begin
-        env = Jinja2Environment("templates/")
+        env = Jinja2Environment(_templates_dir())
         finalize(env)
         @test env.tmpl_env_ptr === TEMPLATE_ENV_NULL
         @test env.mem_fs_ptr   === MEMORY_FS_NULL
@@ -79,14 +81,14 @@ end
     end
 
     @testset "Case №3: Rendering with environment and string" begin
-        env = Jinja2Environment("")
+        env = Jinja2Environment(_templates_dir())
         tmpl = Jinja2Template(env, template_source)
         rendered_output = jinja2_render(tmpl, Dict("name" => "Dale Cooper"))
         @test rendered_output == "Hello, Dale Cooper!"
     end
 
     @testset "Case №4: Rendering with environment and file name" begin
-        env = Jinja2Environment("templates/")
+        env = Jinja2Environment(_templates_dir())
         tmpl = Jinja2Template(env, """ {% include "main.j2" %} """; name = "main.j2")
         rendered_output = jinja2_render(tmpl, Dict("name" => "David Lynch"))
         @test occursin("<h1>Hello, David Lynch!</h1>", rendered_output)
@@ -154,7 +156,7 @@ end
     end
 
     @testset "Case №7: Invalid file name" begin
-        env = Jinja2Environment("templates/")
+        env = Jinja2Environment(_templates_dir())
         tmpl = Jinja2Template(env, """ {% include "unknown.j2" %} """)
         @test_throws Jinja2Error jinja2_render(tmpl)
     end
@@ -218,5 +220,29 @@ end
         tmpl = Jinja2Template(template_source)
         rendered_output = jinja2_render(tmpl, (name = "Diane",))
         @test rendered_output == "Hello, Diane!"
+    end
+
+    @testset "Case №10: Rendering with Enum values" begin
+        @enum Color begin
+            Red = 1
+            Blue = 2
+        end
+        tmpl = Jinja2Template("color: {{ c }}")
+        @test jinja2_render(tmpl, Dict("c" => Red)) == "color: Red"
+        struct HasEnum; c::Color; end
+        tmpl = Jinja2Template("struct color: {{ c }}")
+        @test jinja2_render(tmpl, HasEnum(Blue)) == "struct color: Blue"
+        tmpl = Jinja2Template("list: {{ xs[0] }}, {{ xs[1] }}")
+        @test jinja2_render(tmpl, Dict("xs" => [Red, Blue])) == "list: Red, Blue"
+    end
+
+    @testset "Case №11: Rendering with Bool values" begin
+        tmpl_true  = Jinja2Template("Flag is {% if flag %}ON{% else %}OFF{% endif %}")
+        tmpl_false = Jinja2Template("Flag is {% if not flag %}OFF{% else %}ON{% endif %}")
+        @test jinja2_render(tmpl_true,  Dict("flag"=>true))  == "Flag is ON"
+        @test jinja2_render(tmpl_true,  Dict("flag"=>false)) == "Flag is OFF"
+        struct FlagHolder; flag::Bool; end
+        @test jinja2_render(tmpl_true,  FlagHolder(true))    == "Flag is ON"
+        @test jinja2_render(tmpl_false, Dict("flag"=>false)) == "Flag is OFF"
     end
 end
