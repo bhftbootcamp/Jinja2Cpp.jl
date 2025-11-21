@@ -1,15 +1,18 @@
 #__ Jinja2Value
 
+using Dates
+
 abstract type Jinja2ValueType end
 
-struct Jinja2StringType <: Jinja2ValueType end
-struct Jinja2IntegerType <: Jinja2ValueType end
-struct Jinja2BoolType    <: Jinja2ValueType end
-struct Jinja2DoubleType  <: Jinja2ValueType end
-struct Jinja2ListType    <: Jinja2ValueType end
-struct Jinja2MapType     <: Jinja2ValueType end
-struct Jinja2EmptyType   <: Jinja2ValueType end
-struct Jinja2CustomType  <: Jinja2ValueType end
+struct Jinja2StringType   <: Jinja2ValueType end
+struct Jinja2IntegerType  <: Jinja2ValueType end
+struct Jinja2BoolType     <: Jinja2ValueType end
+struct Jinja2DoubleType   <: Jinja2ValueType end
+struct Jinja2ListType     <: Jinja2ValueType end
+struct Jinja2MapType      <: Jinja2ValueType end
+struct Jinja2EmptyType    <: Jinja2ValueType end
+struct Jinja2DateTimeType <: Jinja2ValueType end
+struct Jinja2CustomType   <: Jinja2ValueType end
 
 @inline Jinja2ValueType(::T) where {T} = Jinja2ValueType(T)
 @inline Jinja2ValueType(::Type{<:AbstractString}) = Jinja2StringType()
@@ -25,6 +28,7 @@ struct Jinja2CustomType  <: Jinja2ValueType end
 @inline Jinja2ValueType(::Type{<:AbstractDict}) = Jinja2MapType()
 @inline Jinja2ValueType(::Type{<:NamedTuple}) = Jinja2MapType()
 @inline Jinja2ValueType(::Type{<:Enum}) = Jinja2StringType()
+@inline Jinja2ValueType(::Type{<:TimeType}) = Jinja2DateTimeType()
 @inline Jinja2ValueType(::Type{<:Any}) = Jinja2CustomType()
 
 @inline function check_value_null(handle)
@@ -73,6 +77,10 @@ end
 @inline function jinja_value(::Jinja2DoubleType, value::AbstractFloat)
     handle = jinja2cpp_value_create_double(value)
     return check_value_null(handle)
+end
+
+@inline function jinja_value(::Jinja2DateTimeType, x::TimeType)
+    return jinja_value(Jinja2StringType(), string(x))
 end
 
 @inline function jinja_value(::Jinja2EmptyType, ::Any)
