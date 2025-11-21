@@ -1,4 +1,5 @@
 using Test
+using Dates
 using Jinja2Cpp
 
 import Jinja2Cpp.Jinja2Wrapper:
@@ -244,5 +245,14 @@ end
         struct FlagHolder; flag::Bool; end
         @test jinja2_render(tmpl_true,  FlagHolder(true))    == "Flag is ON"
         @test jinja2_render(tmpl_false, Dict("flag"=>false)) == "Flag is OFF"
+    end
+
+    @testset "Case №11: Rendering with Dates values" begin
+        dt = now(UTC)
+        t = Time(dt)
+        d = Date(dt)
+        tmpl = Jinja2Template("Now is {{ t }}. Today is {{ d }}. Date and time: {{ dt }}")
+        @test jinja2_render(tmpl, Dict("t" => t, "d" => d, "dt" => dt)) ==
+            "Now is $(t). Today is $(d). Date and time: $(dt)"
     end
 end
