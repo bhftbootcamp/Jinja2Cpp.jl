@@ -1,6 +1,6 @@
 name = "Jinja2Cpp"
 uuid = "53d8605c-dcf1-482a-b927-58e959abfe3c"
-version = "0.1.4"
+version = "0.1.5"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"

@@ -53,7 +53,7 @@ end
 end
 
 @inline function jinja_value(::Jinja2StringType, value::AbstractString)
-    handle = jinja2cpp_value_create_string(value)
+    handle = jinja2cpp_value_create_string(String(value))
     return check_value_null(handle)
 end
 
