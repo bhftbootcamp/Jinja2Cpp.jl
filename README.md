@@ -6,7 +6,7 @@
 [![Coverage](https://codecov.io/gh/bhftbootcamp/Jinja2Cpp.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/bhftbootcamp/Jinja2Cpp.jl)
 [![Registry](https://img.shields.io/badge/registry-Green-green)](https://github.com/bhftbootcamp/Green)
 
-Julia wrapper for Jinja2Cpp for Jinja2 template rendering.
+Julia wrapper for the Jinja2Cpp template rendering library.
 
 ## Installation
 
